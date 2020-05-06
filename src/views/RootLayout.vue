@@ -52,10 +52,6 @@
 
         created() {
 
-            /**
-             *
-             * @type {{api: *}}
-             */
             const meta = require('../samplemeta.json') as MetaResponse;
             new Promise<MetaResponse>(resolve => resolve(meta))
                 .then(data => {
