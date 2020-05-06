@@ -1,0 +1,53 @@
+{
+  "api": [{
+    "name": "my_first_api_🍆🤡",
+    "endpoints": [
+      {
+        "name": "users",
+        "url": "/api/lift/{:tenant}/{:optional_param}/users",
+        "collectionName": "users",
+        "DB": "lift",
+        
+        "columns": [
+          {
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "name": "tenant",
+            "type": "integer",
+            "inPath": true,
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "ads",
+        "url": "/api/lift/{:tenant}/{:optional_param}/ads",
+        "collectionName": "ads",
+        "DB": "lift",
+        
+        "columns": [
+          {
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "name": "tenant",
+            "type": "integer",
+            "inPath": true,
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }]
+}

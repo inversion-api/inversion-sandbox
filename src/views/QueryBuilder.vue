@@ -1,5 +1,5 @@
 <template>
-    <div class="about">
+    <div class="about" v-if="tables">
         <v-text-field disabled :value="fullCallUrl"/>
         <v-text-field disabled :value="rql"/>
 
@@ -12,13 +12,9 @@
             <v-icon>mdi-play</v-icon>
         </v-btn>
 
-        FUCK
-        {{tableName}} &lt;-- table<br>
-        <br>
-        ---- {{tables}}
-        <br>
+        <!--        {{tableName}} &lt;&#45;&#45; table<br>-->
 
-        {{tableObj}}
+        {{table}}
         <query-result-viewer/>
     </div>
 </template>
@@ -26,6 +22,7 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import QueryResultViewer from "@/components/QueryResultViewer.vue";
+    import {Endpoint} from "@/schema/MetaResponse";
 
     @Component({
         components: {QueryResultViewer}
@@ -33,12 +30,19 @@
     export default class HelloWorld extends Vue {
         @Prop() private tableName!: string;
 
-        @Prop() private tables?: any[];
+        // @Prop() private table?: Endpoint;
+        @Prop() private tables?: Endpoint[];
 
-        get tableObj() {
-            return this?.tables!
-                .filter(x => x.name === this.tableName)[0];
+        // @Prop()
+        get table(): Endpoint | undefined {
+            return this.tables
+                ?.filter(x => x.name === this.tableName)[0];
         }
+
+        // get tableObj() {
+        //     return this?.tables!
+        //         .filter(x => x.name === this.tableName)[0];
+        // }
 
         get fullCallUrl() {
             return 'URL goes here';
@@ -47,10 +51,6 @@
         get rql() {
             return 'RQL goes here';
         }
-
-        filters: object[] = [{}, {}, {}];
-
-        // fullCallUrl: String = ''
 
 
         // data() {

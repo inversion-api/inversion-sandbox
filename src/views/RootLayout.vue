@@ -26,8 +26,6 @@
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
-
-
         <v-content>
             <v-container fluid>
                 <router-view v-bind:tables="tables"></router-view>
@@ -43,52 +41,28 @@
     }
 </style>
 
-<script>
-    // @ is an alias to /src
-    // import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
+    import {Endpoint, MetaResponse} from '@/schema/MetaResponse';
+    import {Component, Vue, Prop} from "vue-property-decorator";
 
-    export default {
-        name: 'Home',
-        data() {
-            return {
-                tables: []
-                // tables: [1, 2, 3]
-            }
-        },
-        components: {
-            // HelloWorld
-        },
+
+    @Component
+    export default class RootLayout extends Vue {
+        @Prop() private tables?: Endpoint[];
+
         created() {
-            // this.tables
 
-            // setInterval(()=>console.log(this.$route.params.tables.length), 2000);
-
-            setTimeout(() => {
-                this.tables = [
-                    {id: 1, name: 'asdf1'},
-                    {id: 2, name: 'asdf2'},
-                    {id: 3, name: 'asdf3'},
-                    {id: 4, name: 'asdf4'},
-                ];
-
-                // this.$route.params.tables = this.tables;
-
-
-            }, 500);
-
-            //TODO get metadata
-            (async () => {
-                const response = await fetch('/api/lift/us/dynamo/loyalty-punchcard?playercode=ckrt-MktgLabRad-1&playerkey=0f48c6dc-18c0-4ff1-bd59-92bb4c27421b&mobilenumber=4045835198&type=POINT')
-                // console.log(response);
-                if (!response.ok) {
-                    throw new Error(response.status + '\n\t\tfor ' + response.url + '\nRESPONSE ' + await response.text());
-                }
-                // console.log('logging:');
-                // console.log(await response.text());
-                // console.log('logged:')
-                // debugger;
-            })().catch(err => console.error('shit', err));
-
+            /**
+             *
+             * @type {{api: *}}
+             */
+            const meta = require('../samplemeta.json') as MetaResponse;
+            new Promise<MetaResponse>(resolve => resolve(meta))
+                .then(data => {
+                    this.tables = data.api.flatMap(api => {
+                        return api.endpoints;
+                    })
+                });
 
         }
     }
