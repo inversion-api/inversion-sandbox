@@ -1,36 +1,33 @@
 <template>
     <div>
         <v-simple-table>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Calories</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in data" :key="item.toString()">
-                  &gt;-- keys   <div>Object.entries(item)</div>  &lt;-- keys
-                <td>{{ item.name }}</td>
-                <td>{{ item.calories }}</td>
-              </tr>
-            </tbody>
-          </template>
+            <template v-slot:default>
+                <thead>
+                <tr>
+                    <th v-for="col in data[0]" :key="col.column" class="text-left">{{col.column}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(row,i) in data" :key="i">
+                    <td v-for="(col,i) in row" :key="i">{{ col.val }}</td>
+                </tr>
+                </tbody>
+            </template>
         </v-simple-table>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Prop} from 'vue-property-decorator';
+    import {Component, Vue} from 'vue-property-decorator';
 
     @Component
     export default class QueryResultViewer extends Vue {
-        
-        @Prop()
-        private data?: Object[] = [{col1: 1}, {col2: 2}, {col3: 3}];
-        
+
+        // @Prop()
+        private data?: Object[] = [[{column: "col1", val: 1}, {column: "col2", val: 4}, {column: "col3", val: 88}], [{column: "col1", val: 1}, {column: "col2", val: 4}, {column: "col3", val: 88}]];
+
         private column: String = '';
-        
+
         created() {
         }
     }

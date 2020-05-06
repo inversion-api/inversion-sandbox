@@ -60,7 +60,7 @@
         },
         created() {
             // this.tables
-            
+
             // setInterval(()=>console.log(this.$route.params.tables.length), 2000);
 
             setTimeout(() => {
@@ -75,21 +75,21 @@
 
 
             }, 500);
-            
+
             //TODO get metadata
             (async () => {
-              const response = await fetch('/api/lift/us/dynamo/loyalty-punchcard?playercode=ckrt-MktgLabRad-1&playerkey=0f48c6dc-18c0-4ff1-bd59-92bb4c27421b&mobilenumber=4045835198&type=POINT')
-              // console.log(response);
-              if(!response.ok) {
-                throw new Error(response.status + '\n\t\tfor ' + response.url + '\nRESPONSE ' + await response.text() );
-              }
-              // console.log('logging:');
-              // console.log(await response.text());
-              // console.log('logged:')
-              // debugger;
+                const response = await fetch('/api/lift/us/dynamo/loyalty-punchcard?playercode=ckrt-MktgLabRad-1&playerkey=0f48c6dc-18c0-4ff1-bd59-92bb4c27421b&mobilenumber=4045835198&type=POINT')
+                // console.log(response);
+                if (!response.ok) {
+                    throw new Error(response.status + '\n\t\tfor ' + response.url + '\nRESPONSE ' + await response.text());
+                }
+                // console.log('logging:');
+                // console.log(await response.text());
+                // console.log('logged:')
+                // debugger;
             })().catch(err => console.error('shit', err));
-            
-            
+
+
         }
     }
 </script>
